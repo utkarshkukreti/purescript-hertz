@@ -1,0 +1,29 @@
+{
+  "name": "purescript-hertz",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/utkarshkukreti/purescript-hertz.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^4.1.0",
+    "purescript-console": "^4.2.0",
+    "purescript-effect": "^2.0.0",
+    "purescript-weber": "^0.1.4",
+    "purescript-unsafe-coerce": "^4.0.0",
+    "purescript-arrays": "^5.1.0",
+    "purescript-strings": "^4.0.1",
+    "purescript-tuples": "^5.1.0"
+  },
+  "devDependencies": {
+    "purescript-psci-support": "^4.0.0",
+    "purescript-generics-rep": "^6.1.0"
+  }
+}

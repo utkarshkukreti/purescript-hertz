@@ -1,0 +1,36 @@
+module Hertz (
+  module Hertz.Internal,
+  module Hertz.Element,
+  module Hertz.On,
+  module Hertz.Property
+) where
+
+import Hertz.Internal (
+  Component,
+  Property,
+  VirtualNode,
+  text,
+  property,
+  on,
+  class',
+  ref,
+  key,
+  element,
+  none,
+  component,
+  make,
+  render,
+  log
+)
+
+import Hertz.Element (
+  <%= html_elements.map { |name| name }.join(",\n  ") %>
+)
+
+import Hertz.On (
+  <%= events.map { |(name, _)| name }.join(",\n  ") %>
+)
+
+import Hertz.Property (
+  <%= html_attributes.map { |(name, _)| quote.(name) }.join(",\n  ") %>
+)

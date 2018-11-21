@@ -1,0 +1,18 @@
+a {
+  margin-right: 0.5rem;
+}
+
+a,
+a:visited {
+  color: dodgerblue;
+}
+
+h3 {
+  border: 1px dashed transparent;
+  padding: 0.5rem;
+  margin: 0.25rem;
+}
+
+h3.active {
+  border-color: #333;
+}

@@ -1,0 +1,8 @@
+h1 {
+  position: absolute;
+  padding: 2rem;
+  margin: 0;
+  background: crimson;
+  color: white;
+  user-select: none;
+}

@@ -1,0 +1,41 @@
+module Hertz.Window where
+
+import Prelude
+
+import Hertz.Internal (SubscriptionSpec, Subscription, subscribe)
+import Weber.Event as Event
+import Weber.EventTarget as EventTarget
+import Weber.Window as Window
+import Unsafe.Coerce (unsafeCoerce)
+
+type Props a = {
+  name :: String,
+  fn :: Event.Event -> a
+}
+
+type State = {
+  name :: String,
+  handler :: EventTarget.Handler
+}
+
+spec :: forall a. SubscriptionSpec (Props a) State a
+spec = { initialize, update, destroy }
+  where
+    initialize {props: {name, fn}, send} = do
+      handler <- EventTarget.addEventListener Window.window name (send <<< fn)
+      pure { name, handler }
+    update {props, state, send} = do
+      if props.name /= state.name
+        then do
+          destroy {props, state, send}
+          initialize {props, send}
+        else pure state
+    destroy {state: {name, handler}} = do
+      EventTarget.removeEventListener Window.window name handler
+
+on :: forall a. String -> (Event.Event -> a) -> Subscription a
+on name fn = subscribe spec { name, fn }
+<% events.each do |(name, event_type)| %>
+<%= name %> :: forall a. (Event.<%= event_type %> -> a) -> Subscription a
+<%= name %> = on "<%= name.gsub(/^on/, "").downcase %>"<% if event_type != "Event"%> <<< (_ <<< unsafeCoerce)<% end %>
+<% end %>

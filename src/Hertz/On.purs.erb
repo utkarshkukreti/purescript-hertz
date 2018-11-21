@@ -1,0 +1,12 @@
+module Hertz.On where
+
+import Prelude
+
+import Effect (Effect)
+import Hertz.Internal (Property, on)
+import Unsafe.Coerce (unsafeCoerce)
+import Weber.Event as Event
+<% events.each do |(name, event_type)| %>
+<%= name %> :: (Event.<%= event_type %> -> Effect Unit) -> Property
+<%= name %> = on "<%= name.gsub(/^on/, "").downcase %>"<% if event_type != "Event"%> <<< unsafeCoerce<% end %>
+<% end %>

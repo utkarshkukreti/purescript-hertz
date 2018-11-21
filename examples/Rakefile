@@ -1,0 +1,57 @@
+require "erb"
+
+def write(path, template)
+  File.write(path, ERB.new(template).result(binding))
+end
+
+task :default do
+  rm_rf "dist"
+  rm_rf "output"
+  mkdir_p "output"
+  FileList["*.purs"].ext("").each do |name|
+    write "output/#{name}.js", <<ERB
+import { main } from "../../dce-output/Examples.#{name}/index.js";
+main();
+ERB
+
+    has_css = File.exist?("#{name}.css")
+
+    if has_css
+      cp "#{name}.css", "output/#{name}.css"
+    end
+
+    write "output/#{name}.html", <<ERB
+<!doctype html>
+<html>
+  <head>
+    <% if #{has_css} %>
+      <link rel="stylesheet" href="#{name}.css">
+    <% end %>
+  </head>
+  <body>
+    <main></main>
+    <script src="#{name}.js"></script>
+  </body>
+</html>
+ERB
+  end
+
+  write "output/index.html", <<ERB
+<!doctype html>
+<html>
+  <body>
+    <ul>
+      <% FileList["*.purs"].ext("").each do |name| %>
+        <li>
+          <a href="<%= name %>.html"><%= name %></a>
+        </li>
+      <% end %>
+    </ul>
+  </body>
+</html>
+ERB
+
+  entry_points = FileList["*.purs"].ext("").map { |name| "Examples.#{name}" }.join(" ")
+  sh "cd .. && zephyr -f #{entry_points}"
+  sh "parcel build --experimental-scope-hoisting --public-url ./ output/index.html"
+end

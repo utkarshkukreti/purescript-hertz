@@ -1,0 +1,7 @@
+module Hertz.Element where
+
+import Hertz.Internal (VirtualNode, Property, element)
+<% html_elements.each do |name| %>
+<%= name %> :: Array Property -> Array VirtualNode -> VirtualNode
+<%= name %> = element "<%= unquote.(name) %>"
+<% end %>

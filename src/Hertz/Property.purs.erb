@@ -1,0 +1,7 @@
+module Hertz.Property where
+
+import Hertz.Internal (Property, property)
+<% html_attributes.each do |(name, type)| %>
+<%= quote.(name) %> :: <%= type %> -> Property
+<%= quote.(name) %> = property "<%= unquote.(name) %>"
+<% end %>
