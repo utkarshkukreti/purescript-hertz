@@ -30,6 +30,7 @@ import Hertz.Internal (
   none,
   component,
   make,
+  makeKeyed,
   render,
   log
 )

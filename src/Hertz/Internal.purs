@@ -129,6 +129,8 @@ component = component_
 
 foreign import make :: forall props. Component props -> props -> VirtualNode
 
+foreign import makeKeyed :: forall props. String -> Component props -> props -> VirtualNode
+
 foreign import render :: String -> VirtualNode -> Effect Unit
 
 foreign import log :: forall a. a -> Effect Unit

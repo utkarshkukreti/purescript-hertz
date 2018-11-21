@@ -173,6 +173,9 @@ exports.component_ = function (name) { return function (spec) {
 exports.make = function (component) { return function (props) {
     return inferno.createComponentVNode(4 /* ComponentClass */, component, { _: props }, null, null);
 }; };
+exports.makeKeyed = function (key) { return function (component) { return function (props) {
+    return inferno.createComponentVNode(4 /* ComponentClass */, component, { _: props }, key, null);
+}; }; };
 exports.render = function (selector) { return function (vnode) { return function () {
     var element = document.querySelector(selector);
     if (element) {

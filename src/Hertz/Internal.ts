@@ -304,6 +304,17 @@ export const make = <Props>(component: inferno.IComponent<Props, any>) => (
     null
   );
 
+export const makeKeyed = <Props>(key: string) => (
+  component: inferno.IComponent<Props, any>
+) => (props: Props): inferno.VNode =>
+  inferno.createComponentVNode(
+    VNodeFlags.ComponentClass,
+    component,
+    { _: props },
+    key,
+    null
+  );
+
 export const render = (selector: string) => (vnode: inferno.VNode) => () => {
   const element = document.querySelector(selector);
   if (element) {
