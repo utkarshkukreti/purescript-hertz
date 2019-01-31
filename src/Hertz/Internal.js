@@ -43,13 +43,13 @@ exports.element = function (name) { return function (properties) { return functi
     var _loop_1 = function (i) {
         var property_1 = properties[i];
         switch (property_1[0]) {
-            case 1:
+            case PROPERTY:
                 props[property_1[1]] = property_1[2];
                 break;
-            case 2:
+            case ON:
                 props['on' + property_1[1]] = inferno.linkEvent(property_1[2], linkEvent);
                 break;
-            case 3:
+            case CLASS:
                 if (className) {
                     className += ' ' + property_1[1];
                 }
@@ -57,10 +57,10 @@ exports.element = function (name) { return function (properties) { return functi
                     className = property_1[1];
                 }
                 break;
-            case 4:
+            case REF:
                 ref = function (_) { return property_1[1](_)(); };
                 break;
-            case 5:
+            case KEY:
                 key = property_1[1];
                 break;
         }

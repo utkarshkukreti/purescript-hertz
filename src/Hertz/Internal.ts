@@ -50,23 +50,23 @@ export const element = (name: string) => (properties: Property[]) => (
   for (let i = 0; i < properties.length; i++) {
     const property = properties[i];
     switch (property[0]) {
-      case 1:
+      case PROPERTY:
         props[property[1]] = property[2];
         break;
-      case 2:
+      case ON:
         props['on' + property[1]] = inferno.linkEvent(property[2], linkEvent);
         break;
-      case 3:
+      case CLASS:
         if (className) {
           className += ' ' + property[1];
         } else {
           className = property[1];
         }
         break;
-      case 4:
+      case REF:
         ref = (_: Element | null) => property[1](_)();
         break;
-      case 5:
+      case KEY:
         key = property[1];
         break;
     }
